@@ -4,9 +4,9 @@
 
 **Domain:** echoweavestudio.com
 
-**Product Type:** Collaborative Creative Studio
+**Product Type:** AI-Enhanced Collaborative Creative Studio
 
-**Core Purpose:** Co-authoring platform for multimedia storytelling
+**Core Purpose:** Co-authoring platform for multimedia storytelling, augmented by an AI to generate, synthesize, and weave creative elements.
 
 ---
 
@@ -18,11 +18,11 @@ Represents the exchange between two creators—ideas, conversations, songs, and 
 
 **Weave**
 
-Represents the act of combining those echoes into a coherent narrative.
+Represents the act of combining those echoes into a coherent narrative, accelerated by an AI intelligence that synthesizes raw ideas, music, and art into polished prose.
 
 **Studio**
 
-Indicates this is a  **creative workshop** , not just a writing tool.
+Indicates this is a  **creative workshop** , featuring an AI co-creator that sits alongside you, not just a writing tool.
 
 ---
 
@@ -60,13 +60,32 @@ You might want a simple line to anchor the project:
 
 ## Private Creative Studio (for you and Natalie)
 
-<pre class="overflow-visible! px-0!" data-start="1372" data-end="1472"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>Dashboard</span><br/><span>Chapters</span><br/><span>Conversations</span><br/><span>Songs</span><br/><span>Images</span><br/><span>Characters</span><br/><span>Themes</span><br/><span>Notes</span><br/><span>Activity Feed</span><br/><span>Settings</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+Dashboard
+Chapters
+Conversations
+Songs (AI Generated & Uploaded)
+Images (AI Generated & Uploaded)
+Characters
+Themes
+Notes
+AI Copilot (The Muse)
+Activity Feed
+Settings
+```
 
 ---
 
 ## Public Site (future phase)
 
-<pre class="overflow-visible! px-0!" data-start="1510" data-end="1553"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>About</span><br/><span>Artwork</span><br/><span>Music</span><br/><span>Story</span><br/><span>Blog</span><br/><span>Book</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+About
+Artwork
+Music
+Story
+Blog
+Book
+```
 
 ---
 
@@ -88,12 +107,12 @@ Button:
 
 **The Creative Process**
 
-Explain that the platform connects:
+Explain that the platform uses AI to seamlessly connect and synthesize:
 
-* conversations
-* songs
-* visual art
-* narrative chapters
+* conversations into plot points
+* AI-generated melodies and soundscapes
+* AI-generated visual art and concept designs
+* cohesive narrative chapters
 
 ---
 
@@ -111,9 +130,9 @@ Natalie Morgan
 
 ### Section 3
 
-**The Studio**
+**The Studio (with AI Copilot)**
 
-Explain that the story is being developed inside a collaborative creative system.
+Explain that the story is being developed inside a collaborative creative system, where an embedded AI acts as a third partner—brainstorming, generating assets, and assisting in the writing process.
 
 ---
 
@@ -121,29 +140,79 @@ Explain that the story is being developed inside a collaborative creative system
 
 To help organize development inside Antigravity:
 
-<pre class="overflow-visible! px-0!" data-start="2217" data-end="2274"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>PROJECT: ECHO-WEAVE-STUDIO</span><br/><span>CODE: EWS</span><br/><span>VERSION: 0.1</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+PROJECT: ECHO-WEAVE-STUDIO
+CODE: EWS
+VERSION: 0.1
+AI-INTEGRATION: ENABLED
+```
 
 ---
 
 # Suggested Repository Name
 
-<pre class="overflow-visible! px-0!" data-start="2310" data-end="2335"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>echo-weave-studio</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+echo-weave-studio
+```
 
 ---
 
 # Suggested Database Prefix
 
-<pre class="overflow-visible! px-0!" data-start="2371" data-end="2383"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>ews_</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+ews_
+```
 
 Example tables:
 
-<pre class="overflow-visible! px-0!" data-start="2402" data-end="2522"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>ews_users</span><br/><span>ews_projects</span><br/><span>ews_chapters</span><br/><span>ews_songs</span><br/><span>ews_images</span><br/><span>ews_conversations</span><br/><span>ews_themes</span><br/><span>ews_comments</span><br/><span>ews_revisions</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+ews_users
+ews_projects
+ews_chapters
+ews_songs
+ews_images
+ews_conversations
+ews_themes
+ews_comments
+ews_revisions
+ews_ai_prompts
+ews_ai_generations
+```
 
 ---
 
 # Suggested Folder Structure (Next.js)
 
-<pre class="overflow-visible! px-0!" data-start="2569" data-end="2768"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼs ͼ16"><div class="cm-scroller"><div class="cm-content q9tKkq_readonly"><span>echo-weave-studio</span><br/><span>│</span><br/><span>app</span><br/><span>│</span><br/><span>├ dashboard</span><br/><span>├ chapters</span><br/><span>├ conversations</span><br/><span>├ songs</span><br/><span>├ images</span><br/><span>├ characters</span><br/><span>├ themes</span><br/><span>├ notes</span><br/><span>│</span><br/><span>components</span><br/><span>│</span><br/><span>├ editor</span><br/><span>├ media</span><br/><span>├ navigation</span><br/><span>│</span><br/><span>lib</span><br/><span>│</span><br/><span>├ database</span><br/><span>├ auth</span><br/><span>│</span><br/><span>styles</span></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+```text
+echo-weave-studio
+│
+app
+│
+├ dashboard
+├ chapters
+├ conversations
+├ copilot
+├ songs
+├ images
+├ characters
+├ themes
+├ notes
+│
+components
+│
+├ editor
+├ media
+├ ai-assist
+├ navigation
+│
+lib
+│
+├ database
+├ ai
+├ auth
+│
+styles
+```
 
 ---
 
@@ -155,9 +224,10 @@ Features included:
 
 * authentication
 * dashboard
-* chapter builder
-* song library
-* image gallery
+* AI-assisted chapter builder
+* AI song generation & library
+* AI image generation & gallery
+* AI Copilot interface
 
 ---
 
