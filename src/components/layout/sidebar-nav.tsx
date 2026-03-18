@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { AIGenerateDialog } from "@/components/ai/AIGenerateDialog";
 import {
   LayoutDashboard,
   BookOpen,
@@ -14,6 +16,7 @@ import {
   StickyNote,
   Activity,
   Settings,
+  Sparkles,
 } from "lucide-react";
 
 const navItems = [
@@ -38,6 +41,14 @@ export function SidebarNav({ onNavClick }: SidebarNavProps) {
 
   return (
     <nav className="flex-1 overflow-y-auto px-2 py-3">
+      <div className="mb-3 px-1">
+        <AIGenerateDialog>
+          <Button variant="outline" className="w-full justify-start gap-2 text-sm">
+            <Sparkles className="size-4" />
+            AI Generate
+          </Button>
+        </AIGenerateDialog>
+      </div>
       <ul className="space-y-1">
         {navItems.map((item) => {
           const isActive =

@@ -7,6 +7,7 @@ import type { JSONContent, Editor } from "@tiptap/react";
 import type { Chapter, ChapterStatus } from "@/lib/types";
 import ChapterEditor from "@/components/editor/ChapterEditor";
 import { AIAssistPanel } from "@/components/editor/AIAssistPanel";
+import { AIGenerateDialog } from "@/components/ai/AIGenerateDialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Loader2, Check, AlertCircle, Sparkles, PanelRightClose } from "lucide-react";
+import { ArrowLeft, Loader2, Check, AlertCircle, Sparkles, PanelRightClose, Wand2 } from "lucide-react";
 
 const CHAPTER_STATUSES: { value: ChapterStatus; label: string }[] = [
   { value: "idea", label: "Idea" },
@@ -207,8 +208,26 @@ export function ChapterEditView({ chapterId }: { chapterId: string }) {
             </SelectContent>
           </Select>
 
-          {/* AI panel toggle + Save indicator */}
+          {/* AI tools + Save indicator */}
           <div className="ml-auto flex items-center gap-1.5 text-xs text-muted-foreground">
+            <AIGenerateDialog
+              onInsert={(text) => {
+                if (editorInstance) {
+                  editorInstance
+                    .chain()
+                    .focus()
+                    .insertContentAt(
+                      editorInstance.state.doc.content.size - 1,
+                      `\n\n${text}`
+                    )
+                    .run();
+                }
+              }}
+            >
+              <Button variant="ghost" size="icon-sm" title="AI Generate">
+                <Wand2 />
+              </Button>
+            </AIGenerateDialog>
             <Button
               variant={showAIPanel ? "secondary" : "ghost"}
               size="icon-sm"
