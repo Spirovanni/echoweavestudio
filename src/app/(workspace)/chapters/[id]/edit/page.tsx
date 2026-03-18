@@ -1,3 +1,5 @@
+import { ChapterEditView } from "./chapter-edit-view";
+
 export default async function ChapterEditPage({
   params,
 }: {
@@ -5,12 +7,5 @@ export default async function ChapterEditPage({
 }) {
   const { id } = await params;
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-        Edit Chapter
-      </h1>
-      <p className="text-sm text-zinc-500">Editing chapter: {id}</p>
-    </div>
-  );
+  return <ChapterEditView chapterId={id} />;
 }
