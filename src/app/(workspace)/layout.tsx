@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getUser } from "@/lib/supabase/auth";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -13,16 +15,18 @@ const navItems = [
   { href: "/settings", label: "Settings" },
 ];
 
-export default function WorkspaceLayout({
+export default async function WorkspaceLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getUser();
+
   return (
-    <div className="flex h-screen bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex h-screen bg-background">
       {/* Sidebar — will be extracted to its own component in the shared layout task */}
-      <aside className="flex w-56 shrink-0 flex-col border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="border-b border-zinc-200 px-4 py-4 dark:border-zinc-800">
+      <aside className="flex w-56 shrink-0 flex-col border-r border-border bg-card">
+        <div className="border-b border-border px-4 py-4">
           <h1 className="text-sm font-bold tracking-tight">Arcana Studio</h1>
         </div>
         <nav className="flex-1 overflow-y-auto px-2 py-3">
@@ -31,7 +35,7 @@ export default function WorkspaceLayout({
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-md px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                  className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                 >
                   {item.label}
                 </Link>
@@ -39,8 +43,11 @@ export default function WorkspaceLayout({
             ))}
           </ul>
         </nav>
-        <div className="border-t border-zinc-200 px-4 py-3 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Xavier &amp; Natalie</p>
+        <div className="space-y-1 border-t border-border px-2 py-3">
+          <p className="px-3 text-xs text-muted-foreground truncate">
+            {user?.email ?? "Not signed in"}
+          </p>
+          {user && <SignOutButton />}
         </div>
       </aside>
 
