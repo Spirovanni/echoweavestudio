@@ -191,7 +191,7 @@ export function ChapterEditView({ chapterId }: { chapterId: string }) {
         </Link>
 
         <div className="flex flex-1 items-center gap-3">
-          <Select value={status} onValueChange={(val) => handleStatusChange(val as ChapterStatus)}>
+          <Select value={status} onValueChange={(val) => val && handleStatusChange(val as ChapterStatus)}>
             <SelectTrigger size="sm">
               <SelectValue />
             </SelectTrigger>

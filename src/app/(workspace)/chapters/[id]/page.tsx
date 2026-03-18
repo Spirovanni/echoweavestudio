@@ -3,8 +3,11 @@ import { createClient } from "@/lib/supabase/server";
 import { requireUser } from "@/lib/supabase/auth";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ContentRenderer } from "@/components/editor/ContentRenderer";
 import { Pencil, ArrowLeft } from "lucide-react";
 import type { Chapter } from "@/lib/types";
+import type { JSONContent } from "@tiptap/react";
 
 export default async function ChapterDetailPage({
   params,
@@ -34,19 +37,24 @@ export default async function ChapterDetailPage({
 
   return (
     <div className="p-6">
+      {/* Header */}
       <div className="mb-6 flex items-center gap-3">
         <Link href="/chapters">
           <Button variant="ghost" size="icon-sm">
             <ArrowLeft />
           </Button>
         </Link>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight">{chapter.title}</h1>
+            <h1 className="text-2xl font-bold tracking-tight truncate">
+              {chapter.title}
+            </h1>
             <Badge variant="outline">{chapter.status}</Badge>
           </div>
           {chapter.summary && (
-            <p className="mt-1 text-sm text-muted-foreground">{chapter.summary}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {chapter.summary}
+            </p>
           )}
         </div>
         <Link href={`/chapters/${id}/edit`}>
@@ -57,24 +65,32 @@ export default async function ChapterDetailPage({
         </Link>
       </div>
 
-      {chapter.content ? (
-        <div className="prose prose-neutral dark:prose-invert max-w-4xl">
-          <p className="text-sm text-muted-foreground">
-            Content preview is available in the editor.
-          </p>
-        </div>
-      ) : (
-        <p className="text-sm text-muted-foreground">
-          No content yet.{" "}
-          <Link href={`/chapters/${id}/edit`} className="text-primary underline underline-offset-4">
-            Start writing
-          </Link>
-        </p>
-      )}
+      {/* Metadata */}
+      <div className="mb-6 flex flex-wrap gap-4 text-xs text-muted-foreground">
+        <span>Created {new Date(chapter.created_at).toLocaleDateString()}</span>
+        <span>Updated {new Date(chapter.updated_at).toLocaleDateString()}</span>
+        <span>Order: {chapter.order_index + 1}</span>
+      </div>
 
-      <div className="mt-8 text-xs text-muted-foreground">
-        <p>Created: {new Date(chapter.created_at).toLocaleDateString()}</p>
-        <p>Updated: {new Date(chapter.updated_at).toLocaleDateString()}</p>
+      <Separator className="mb-6" />
+
+      {/* Content */}
+      <div className="mx-auto max-w-4xl">
+        {chapter.content ? (
+          <ContentRenderer
+            content={chapter.content as unknown as JSONContent}
+          />
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            No content yet.{" "}
+            <Link
+              href={`/chapters/${id}/edit`}
+              className="text-primary underline underline-offset-4"
+            >
+              Start writing
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
