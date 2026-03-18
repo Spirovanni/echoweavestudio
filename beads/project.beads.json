@@ -1,0 +1,122 @@
+[
+  {
+    "id": "EWS-CORE-01",
+    "title": "Initialize Repository and CI/CD",
+    "description": "Scaffold Next.js App Router, configure TailwindCSS, establish linting and folder structure.",
+    "priority": "high",
+    "dependencies": [],
+    "complexity": 2,
+    "module": "core-platform",
+    "phase": "Phase 1 - Core Platform"
+  },
+  {
+    "id": "EWS-CORE-02",
+    "title": "Define Supabase Database Schema",
+    "description": "Write migrations for ews_users, ews_projects, ews_chapters, ews_conversations, ews_ai_prompts.",
+    "priority": "high",
+    "dependencies": ["EWS-CORE-01"],
+    "complexity": 3,
+    "module": "core-platform",
+    "phase": "Phase 1 - Core Platform"
+  },
+  {
+    "id": "EWS-CORE-03",
+    "title": "Implement Authentication",
+    "description": "Integrate Supabase Auth for co-author login and session management.",
+    "priority": "high",
+    "dependencies": ["EWS-CORE-02"],
+    "complexity": 3,
+    "module": "core-platform",
+    "phase": "Phase 1 - Core Platform"
+  },
+  {
+    "id": "EWS-CORE-04",
+    "title": "Build Project Dashboard",
+    "description": "Create the main internal dashboard showing active projects and recent changes.",
+    "priority": "medium",
+    "dependencies": ["EWS-CORE-03"],
+    "complexity": 3,
+    "module": "core-platform",
+    "phase": "Phase 1 - Core Platform"
+  },
+  {
+    "id": "EWS-COL-01",
+    "title": "Collaborative Chapter Editor",
+    "description": "Implement the rich-text editor for drafting narrative chapters.",
+    "priority": "high",
+    "dependencies": ["EWS-CORE-04"],
+    "complexity": 5,
+    "module": "collaboration-engine",
+    "phase": "Phase 2 - Collaboration System"
+  },
+  {
+    "id": "EWS-COL-02",
+    "title": "Conversations Idea Board",
+    "description": "Create transcription and chat interface for recording raw dialogues.",
+    "priority": "medium",
+    "dependencies": ["EWS-CORE-04"],
+    "complexity": 4,
+    "module": "collaboration-engine",
+    "phase": "Phase 2 - Collaboration System"
+  },
+  {
+    "id": "EWS-AI-01",
+    "title": "Integrate LLM Services",
+    "description": "Build backend API routes to communicate with OpenAI/Anthropic for text generation.",
+    "priority": "high",
+    "dependencies": ["EWS-CORE-01"],
+    "complexity": 3,
+    "module": "ai-creative-engine",
+    "phase": "Phase 3 - AI Writing Engine"
+  },
+  {
+    "id": "EWS-AI-02",
+    "title": "AI Copilot Module (The Muse)",
+    "description": "Add the conversational AI interface to the studio for brainstorming.",
+    "priority": "high",
+    "dependencies": ["EWS-AI-01", "EWS-CORE-04"],
+    "complexity": 4,
+    "module": "ai-creative-engine",
+    "phase": "Phase 3 - AI Writing Engine"
+  },
+  {
+    "id": "EWS-AI-03",
+    "title": "AI Image & Audio Generation",
+    "description": "Integrate APIs for Midjourney/DALL-E and Suno/Udio to generate media assets.",
+    "priority": "medium",
+    "dependencies": ["EWS-AI-01"],
+    "complexity": 5,
+    "module": "ai-creative-engine",
+    "phase": "Phase 3 - AI Writing Engine"
+  },
+  {
+    "id": "EWS-AI-04",
+    "title": "Inline AI Writing Assistant",
+    "description": "Connect the LLM to the Chapter Editor for inline autocompletion and synthesis.",
+    "priority": "high",
+    "dependencies": ["EWS-AI-01", "EWS-COL-01"],
+    "complexity": 5,
+    "module": "ai-creative-engine",
+    "phase": "Phase 3 - AI Writing Engine"
+  },
+  {
+    "id": "EWS-PUB-01",
+    "title": "Public Reader Landing Page",
+    "description": "Design and build public-facing index page for reader access.",
+    "priority": "low",
+    "dependencies": ["EWS-CORE-02"],
+    "complexity": 3,
+    "module": "publishing-system",
+    "phase": "Phase 4 - Publishing System"
+  },
+  {
+    "id": "EWS-PUB-02",
+    "title": "Multimedia Reading UI",
+    "description": "Develop the immersive reading view syncing text with AI-generated audio and art.",
+    "priority": "low",
+    "dependencies": ["EWS-PUB-01", "EWS-COL-01", "EWS-AI-03"],
+    "complexity": 5,
+    "module": "publishing-system",
+    "phase": "Phase 4 - Publishing System"
+  }
+]
