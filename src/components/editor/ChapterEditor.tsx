@@ -1,28 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import LinkExtension from "@tiptap/extension-link";
+import ImageExtension from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
+import UnderlineExtension from "@tiptap/extension-underline";
+import type { JSONContent } from "@tiptap/react";
+import { EditorToolbar } from "./EditorToolbar";
 
-export default function ChapterEditor({ chapterId }: { chapterId: string }) {
-  const [content, setContent] = useState("");
+interface ChapterEditorProps {
+  /** Initial content as Tiptap JSON */
+  content?: JSONContent | null;
+  /** Called whenever the document changes */
+  onUpdate?: (content: JSONContent) => void;
+  /** Placeholder text shown when editor is empty */
+  placeholder?: string;
+  /** Whether the editor is read-only */
+  editable?: boolean;
+}
+
+export default function ChapterEditor({
+  content,
+  onUpdate,
+  placeholder = "Start writing your chapter...",
+  editable = true,
+}: ChapterEditorProps) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3] },
+      }),
+      LinkExtension.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          class: "text-primary underline underline-offset-4 cursor-pointer",
+        },
+      }),
+      ImageExtension.configure({
+        HTMLAttributes: {
+          class: "rounded-md max-w-full mx-auto",
+        },
+      }),
+      Placeholder.configure({
+        placeholder,
+      }),
+      UnderlineExtension,
+    ],
+    content: content ?? undefined,
+    editable,
+    onUpdate: ({ editor: e }) => {
+      onUpdate?.(e.getJSON());
+    },
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-neutral dark:prose-invert max-w-none min-h-[400px] px-6 py-4 focus:outline-none",
+      },
+    },
+  });
 
   return (
-    <div className="flex flex-col h-full w-full border border-zinc-200 rounded-lg overflow-hidden dark:border-zinc-800">
-      <div className="bg-zinc-50 border-b border-zinc-200 p-2 flex items-center justify-between dark:bg-zinc-900 dark:border-zinc-800">
-        <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-          Chapter Editor
-        </h2>
-        <button className="text-xs bg-zinc-900 text-white px-3 py-1 rounded hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900">
-          Save
-        </button>
-      </div>
-      <div className="flex-1 p-4 bg-white dark:bg-zinc-950">
-        <textarea
-          className="w-full h-full resize-none outline-none text-zinc-800 leading-relaxed font-serif dark:text-zinc-200 dark:bg-zinc-950"
-          placeholder="Start writing your chapter..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </div>
+    <div className="flex flex-col overflow-hidden rounded-lg border border-border bg-card">
+      {editable && <EditorToolbar editor={editor} />}
+      <EditorContent editor={editor} />
     </div>
   );
 }
