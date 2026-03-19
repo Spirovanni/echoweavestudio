@@ -10,6 +10,14 @@ export type EntityType =
   | "theme"
   | "note";
 
+// Linkable entity types (entities that can be linked to chapters)
+export type LinkableEntityType =
+  | "song"
+  | "image"
+  | "conversation"
+  | "character"
+  | "theme";
+
 export type ChapterStatus =
   | "idea"
   | "outline"
@@ -137,6 +145,82 @@ export interface ChapterRevision {
   created_at: string;
 }
 
+// --- Entity Linking (Junction Tables) ---
+
+export interface ChapterSongLink {
+  chapter_id: string;
+  song_id: string;
+  created_at: string;
+}
+
+export interface ChapterImageLink {
+  chapter_id: string;
+  image_id: string;
+  created_at: string;
+}
+
+export interface ChapterConversationLink {
+  chapter_id: string;
+  conversation_id: string;
+  created_at: string;
+}
+
+export interface ChapterCharacterLink {
+  chapter_id: string;
+  character_id: string;
+  created_at: string;
+}
+
+export interface ChapterThemeLink {
+  chapter_id: string;
+  theme_id: string;
+  created_at: string;
+}
+
+// Generic link interface
+export interface EntityLink {
+  chapter_id: string;
+  entity_id: string;
+  entity_type: LinkableEntityType;
+  created_at: string;
+}
+
+// Mapping from entity type to linked entity data
+export type LinkedEntityData = {
+  song: Song;
+  image: Image;
+  conversation: Conversation;
+  character: Character;
+  theme: Theme;
+};
+
+// Mapping from entity type to table name
+export const LINK_TABLE_MAP: Record<LinkableEntityType, string> = {
+  song: "ews_chapter_songs",
+  image: "ews_chapter_images",
+  conversation: "ews_chapter_conversations",
+  character: "ews_chapter_characters",
+  theme: "ews_chapter_themes",
+};
+
+// Mapping from entity type to entity table name
+export const ENTITY_TABLE_MAP: Record<LinkableEntityType, string> = {
+  song: "ews_songs",
+  image: "ews_images",
+  conversation: "ews_conversations",
+  character: "ews_characters",
+  theme: "ews_themes",
+};
+
+// Mapping from entity type to ID column name in junction table
+export const LINK_ID_COLUMN_MAP: Record<LinkableEntityType, string> = {
+  song: "song_id",
+  image: "image_id",
+  conversation: "conversation_id",
+  character: "character_id",
+  theme: "theme_id",
+};
+
 // --- Supabase database type helper ---
 
 export interface Database {
@@ -153,6 +237,12 @@ export interface Database {
       ews_themes: { Row: Theme; Insert: Omit<Theme, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Theme, "id">> };
       ews_comments: { Row: Comment; Insert: Omit<Comment, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Comment, "id">> };
       ews_chapter_revisions: { Row: ChapterRevision; Insert: Omit<ChapterRevision, "id" | "created_at">; Update: Partial<Omit<ChapterRevision, "id">> };
+      // Junction tables
+      ews_chapter_songs: { Row: ChapterSongLink; Insert: Omit<ChapterSongLink, "created_at">; Update: never };
+      ews_chapter_images: { Row: ChapterImageLink; Insert: Omit<ChapterImageLink, "created_at">; Update: never };
+      ews_chapter_conversations: { Row: ChapterConversationLink; Insert: Omit<ChapterConversationLink, "created_at">; Update: never };
+      ews_chapter_characters: { Row: ChapterCharacterLink; Insert: Omit<ChapterCharacterLink, "created_at">; Update: never };
+      ews_chapter_themes: { Row: ChapterThemeLink; Insert: Omit<ChapterThemeLink, "created_at">; Update: never };
     };
   };
 }
