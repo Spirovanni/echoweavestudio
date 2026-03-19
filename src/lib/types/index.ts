@@ -145,6 +145,67 @@ export interface ChapterRevision {
   created_at: string;
 }
 
+export interface Note {
+  id: string;
+  project_id: string;
+  title: string;
+  content: string | null;
+  tags: string[];
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type AIToolType = "plot" | "outline" | "story" | "assist" | "copilot";
+
+export interface AIGeneration {
+  id: string;
+  project_id: string;
+  tool_type: AIToolType;
+  prompt: string;
+  output: string;
+  source_entity_type: EntityType | null;
+  source_entity_id: string | null;
+  metadata: Record<string, unknown>;
+  created_by: string;
+  created_at: string;
+}
+
+export interface ProjectSettings {
+  project_id: string;
+  adult_module_enabled: boolean;
+  publishing_enabled: boolean;
+  ai_enabled: boolean;
+  collaboration_enabled: boolean;
+  settings: Record<string, unknown>;
+  updated_at: string;
+}
+
+export type ActivityEventType =
+  | "created"
+  | "updated"
+  | "deleted"
+  | "status_changed"
+  | "linked"
+  | "unlinked"
+  | "ai_generated"
+  | "exported"
+  | "imported"
+  | "member_added"
+  | "member_removed"
+  | "settings_changed";
+
+export interface ActivityEvent {
+  id: string;
+  project_id: string;
+  user_id: string;
+  event_type: ActivityEventType;
+  entity_type: EntityType | "project" | null;
+  entity_id: string | null;
+  metadata: Record<string, unknown>;
+  created_at: string;
+}
+
 // --- Entity Linking (Junction Tables) ---
 
 export interface ChapterSongLink {
@@ -238,6 +299,10 @@ export interface Database {
       ews_themes: { Row: Theme; Insert: Omit<Theme, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Theme, "id">> };
       ews_comments: { Row: Comment; Insert: Omit<Comment, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Comment, "id">> };
       ews_chapter_revisions: { Row: ChapterRevision; Insert: Omit<ChapterRevision, "id" | "created_at">; Update: Partial<Omit<ChapterRevision, "id">> };
+      ews_notes: { Row: Note; Insert: Omit<Note, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Note, "id">> };
+      ews_ai_generations: { Row: AIGeneration; Insert: Omit<AIGeneration, "id" | "created_at">; Update: never };
+      ews_project_settings: { Row: ProjectSettings; Insert: Omit<ProjectSettings, "updated_at">; Update: Partial<Omit<ProjectSettings, "project_id">> };
+      ews_activity_events: { Row: ActivityEvent; Insert: Omit<ActivityEvent, "id" | "created_at">; Update: never };
       // Junction tables
       ews_chapter_songs: { Row: ChapterSongLink; Insert: Omit<ChapterSongLink, "created_at">; Update: never };
       ews_chapter_images: { Row: ChapterImageLink; Insert: Omit<ChapterImageLink, "created_at">; Update: never };
