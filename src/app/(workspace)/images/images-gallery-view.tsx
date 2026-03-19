@@ -22,6 +22,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, ArrowUpDown, ImageIcon } from "lucide-react";
+import { ImageUpload } from "@/components/images/image-upload";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 type SortField = "title" | "created_at" | "updated_at";
 
@@ -45,9 +48,8 @@ export function ImagesGalleryView({ images, projectId }: ImagesGalleryViewProps)
   // Create image dialog state
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
-  const [newImageUrl, setNewImageUrl] = useState("");
   const [newCaption, setNewCaption] = useState("");
-  const [creating, setCreating] = useState(false);
+  const [newSymbolism, setNewSymbolism] = useState("");
 
   const filteredAndSorted = useMemo(() => {
     let result = [...images];
@@ -76,30 +78,19 @@ export function ImagesGalleryView({ images, projectId }: ImagesGalleryViewProps)
     return result;
   }, [images, search, sortField, sortAsc]);
 
-  const handleCreateImage = async () => {
-    if (!newTitle.trim() || !newImageUrl.trim() || !projectId) return;
-    setCreating(true);
-    try {
-      const res = await fetch("/api/images", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          project_id: projectId,
-          title: newTitle.trim(),
-          image_url: newImageUrl.trim(),
-          caption: newCaption.trim() || undefined,
-        }),
-      });
-      if (res.ok) {
-        const { data } = await res.json();
-        setDialogOpen(false);
-        setNewTitle("");
-        setNewImageUrl("");
-        setNewCaption("");
-        router.push(`/images/${data.id}`);
-      }
-    } finally {
-      setCreating(false);
+  const handleUploadComplete = (url: string, imageId?: string) => {
+    // Clear form and close dialog
+    setDialogOpen(false);
+    setNewTitle("");
+    setNewCaption("");
+    setNewSymbolism("");
+
+    // Navigate to the new image if we got an ID
+    if (imageId) {
+      router.push(`/images/${imageId}`);
+    } else {
+      // Refresh the page to show the new image
+      router.refresh();
     }
   };
 
@@ -145,35 +136,52 @@ export function ImagesGalleryView({ images, projectId }: ImagesGalleryViewProps)
                 <Plus />
                 New Image
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle>Add Image</DialogTitle>
+                  <DialogTitle>Upload Image</DialogTitle>
                 </DialogHeader>
-                <div className="space-y-3">
-                  <Input
-                    placeholder="Image title"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
+                <div className="space-y-4">
+                  <ImageUpload
+                    projectId={projectId}
+                    onUploadComplete={handleUploadComplete}
+                    title={newTitle}
+                    caption={newCaption}
+                    symbolism={newSymbolism}
                   />
-                  <Input
-                    placeholder="Image URL"
-                    value={newImageUrl}
-                    onChange={(e) => setNewImageUrl(e.target.value)}
-                  />
-                  <Input
-                    placeholder="Caption (optional)"
-                    value={newCaption}
-                    onChange={(e) => setNewCaption(e.target.value)}
-                  />
+
+                  <div className="space-y-4 pt-4 border-t">
+                    <div className="space-y-2">
+                      <Label htmlFor="title">Title</Label>
+                      <Input
+                        id="title"
+                        placeholder="Enter image title"
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="caption">Caption</Label>
+                      <Input
+                        id="caption"
+                        placeholder="Brief description (optional)"
+                        value={newCaption}
+                        onChange={(e) => setNewCaption(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="symbolism">Symbolism</Label>
+                      <Textarea
+                        id="symbolism"
+                        placeholder="What does this image symbolize in your story? (optional)"
+                        value={newSymbolism}
+                        onChange={(e) => setNewSymbolism(e.target.value)}
+                        rows={3}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <DialogFooter>
-                  <Button
-                    onClick={handleCreateImage}
-                    disabled={!newTitle.trim() || !newImageUrl.trim() || creating}
-                  >
-                    {creating ? "Adding..." : "Add Image"}
-                  </Button>
-                </DialogFooter>
               </DialogContent>
             </Dialog>
           ) : (
