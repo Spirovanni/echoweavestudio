@@ -29,26 +29,59 @@ export default async function SettingsPage() {
   // Get projects the user is a member of
   const { data: memberships } = await supabase
     .from("ews_project_members")
-    .select("project_id, ews_projects!inner(id, name)")
+    .select("project_id, ews_projects!inner(id, title)")
     .eq("user_id", user.id);
 
   const projects = memberships?.map((m: any) => ({
     id: m.project_id,
-    name: m.ews_projects.name,
+    title: m.ews_projects.title,
   })) ?? [];
 
-  // Get project settings for the first project (if available)
+  // Get project data and settings for the first project (if available)
   let aiSettings: AISettings = {};
+  let project = null;
+  let projectMembers: any[] = [];
+  let projectSettings = null;
   const defaultProjectId = projects[0]?.id ?? null;
 
   if (defaultProjectId) {
-    const { data: projectSettings } = await supabase
+    // Fetch project
+    const { data: projectData } = await supabase
+      .from("ews_projects")
+      .select("*")
+      .eq("id", defaultProjectId)
+      .single();
+
+    project = projectData;
+
+    // Fetch project settings
+    const { data: settingsData } = await supabase
       .from("ews_project_settings")
-      .select("settings")
+      .select("*")
       .eq("project_id", defaultProjectId)
       .single();
 
-    aiSettings = projectSettings?.settings?.ai || {};
+    projectSettings = settingsData;
+    aiSettings = settingsData?.settings?.ai || {};
+
+    // Fetch project members
+    const { data: members } = await supabase
+      .from("ews_project_members")
+      .select(`
+        user_id,
+        role,
+        joined_at,
+        ews_profiles!inner(id, display_name, email, avatar_url)
+      `)
+      .eq("project_id", defaultProjectId)
+      .order("joined_at", { ascending: true });
+
+    projectMembers = members?.map((m: any) => ({
+      userId: m.user_id,
+      role: m.role,
+      joinedAt: m.joined_at,
+      profile: Array.isArray(m.ews_profiles) ? m.ews_profiles[0] : m.ews_profiles,
+    })) ?? [];
   }
 
   return (
@@ -56,6 +89,9 @@ export default async function SettingsPage() {
       <SettingsView
         profile={profile}
         projectId={defaultProjectId}
+        project={project}
+        projectMembers={projectMembers}
+        projectSettings={projectSettings}
         aiSettings={aiSettings}
       />
     </div>

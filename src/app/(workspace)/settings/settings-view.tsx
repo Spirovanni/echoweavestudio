@@ -8,18 +8,22 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { User, LogOut, Save, Loader2, Sparkles } from "lucide-react";
+import { User, LogOut, Save, Loader2, Sparkles, FolderOpen } from "lucide-react";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { AISettingsComponent, type AISettings } from "@/components/settings/ai-settings";
+import { ProjectSettingsComponent } from "@/components/settings/project-settings";
 import type { Profile } from "@/lib/types";
 
 interface SettingsViewProps {
   profile: Profile;
   projectId: string | null;
+  project: any;
+  projectMembers: any[];
+  projectSettings: any;
   aiSettings: AISettings;
 }
 
-export function SettingsView({ profile, projectId, aiSettings }: SettingsViewProps) {
+export function SettingsView({ profile, projectId, project, projectMembers, projectSettings, aiSettings }: SettingsViewProps) {
   const router = useRouter();
   const [displayName, setDisplayName] = useState(profile.display_name);
   const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url || "");
@@ -86,14 +90,18 @@ export function SettingsView({ profile, projectId, aiSettings }: SettingsViewPro
 
       {/* Tabs */}
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
+        <TabsList className="grid w-full grid-cols-3 lg:w-[600px]">
           <TabsTrigger value="profile">
             <User className="mr-2 size-4" />
-            Profile & Account
+            Profile
+          </TabsTrigger>
+          <TabsTrigger value="project" disabled={!projectId}>
+            <FolderOpen className="mr-2 size-4" />
+            Project
           </TabsTrigger>
           <TabsTrigger value="ai" disabled={!projectId}>
             <Sparkles className="mr-2 size-4" />
-            AI Settings
+            AI
           </TabsTrigger>
         </TabsList>
 
@@ -231,6 +239,26 @@ export function SettingsView({ profile, projectId, aiSettings }: SettingsViewPro
           </div>
         </CardContent>
       </Card>
+        </TabsContent>
+
+        {/* Project Settings Tab */}
+        <TabsContent value="project" className="space-y-6">
+          {projectId && project && projectSettings ? (
+            <ProjectSettingsComponent
+              projectId={projectId}
+              initialProject={project}
+              initialMembers={projectMembers}
+              initialSettings={projectSettings}
+            />
+          ) : (
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">
+                  No project selected. Join or create a project to manage project settings.
+                </p>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
         {/* AI Settings Tab */}
