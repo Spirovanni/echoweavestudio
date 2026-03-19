@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getAuthenticatedClient } from "@/lib/api/helpers";
 import { getAIProvider, aiStreamToReadableStream } from "@/lib/ai";
+import { logAIGeneration } from "@/lib/ai/generations";
 
 const SYSTEM_PROMPT = `You are a masterful creative writer. Generate a compelling story or story segment.
 
@@ -63,13 +64,6 @@ export async function POST(request: NextRequest) {
 
   if (shouldStream) {
     const aiStream = provider.stream({ messages, system: SYSTEM_PROMPT, temperature: 0.9, maxTokens: 8192 });
-    supabase!.from("ews_ai_generations").insert({
-      user_id: user!.id, project_id: project_id || null,
-      tool: "story_generator", prompt: userPrompt,
-      context: { themes, genre, characters, settings, tone, wordCount },
-      model: "default", provider: provider.name,
-      prompt_tokens: 0, completion_tokens: 0, total_tokens: 0, status: "completed",
-    }).then(() => {});
 
     return new Response(aiStreamToReadableStream(aiStream), {
       headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-cache" },
@@ -80,16 +74,28 @@ export async function POST(request: NextRequest) {
     const result = await provider.generate({ messages, system: SYSTEM_PROMPT, temperature: 0.9, maxTokens: 8192 });
     const durationMs = Date.now() - startTime;
 
-    await supabase!.from("ews_ai_generations").insert({
-      user_id: user!.id, project_id: project_id || null,
-      tool: "story_generator", prompt: userPrompt,
-      context: { themes, genre, characters, settings, tone, wordCount },
-      result: result.text, model: result.model, provider: provider.name,
-      prompt_tokens: result.usage.promptTokens,
-      completion_tokens: result.usage.completionTokens,
-      total_tokens: result.usage.totalTokens,
-      duration_ms: durationMs, status: "completed",
-    });
+    // Log AI generation if project_id is provided
+    if (project_id) {
+      await logAIGeneration(supabase!, {
+        projectId: project_id,
+        toolType: "story",
+        prompt: userPrompt,
+        output: result.text,
+        metadata: {
+          themes,
+          genre,
+          characters,
+          settings,
+          tone,
+          wordCount,
+          model: result.model,
+          provider: provider.name,
+          usage: result.usage,
+          durationMs,
+        },
+        userId: user!.id,
+      });
+    }
 
     let parsed;
     try { parsed = JSON.parse(result.text); } catch { parsed = null; }
