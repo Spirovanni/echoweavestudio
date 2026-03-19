@@ -177,11 +177,12 @@ export interface ChapterThemeLink {
   created_at: string;
 }
 
-// Generic link interface
+// Generic link interface (used for API responses)
 export interface EntityLink {
   chapter_id: string;
   entity_id: string;
   entity_type: LinkableEntityType;
+  entity?: any; // Full entity data (Song | Image | Conversation | Character | Theme)
   created_at: string;
 }
 
