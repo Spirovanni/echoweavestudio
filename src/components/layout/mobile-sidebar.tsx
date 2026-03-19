@@ -32,7 +32,7 @@ export function MobileSidebar({ userEmail }: MobileSidebarProps) {
       </SheetTrigger>
       <SheetContent side="left" showCloseButton={false}>
         <SheetHeader>
-          <SheetTitle>Arcana Studio</SheetTitle>
+          <SheetTitle>Echo Weave Studio</SheetTitle>
         </SheetHeader>
         <SidebarNav onNavClick={() => setOpen(false)} />
         <div className="space-y-1 border-t border-border px-2 py-3">

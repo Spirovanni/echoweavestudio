@@ -1,4 +1,4 @@
-// Shared TypeScript types for Arcana Co-Author Studio
+// Shared TypeScript types for Echo Weave Studio
 // Mirrors the Supabase PostgreSQL schema in supabase/migrations/
 
 export type EntityType =

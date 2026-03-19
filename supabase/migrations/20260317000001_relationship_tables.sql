@@ -1,5 +1,5 @@
 -- =============================================================================
--- Arcana Co-Author Studio — Entity Relationship (Junction) Tables
+-- Echo Weave Studio — Entity Relationship (Junction) Tables
 -- Links chapters to songs, images, conversations, characters, and themes
 -- =============================================================================
 

@@ -3,7 +3,7 @@ import { getAuthenticatedClient } from "@/lib/api/helpers";
 import { getAIProvider, aiStreamToReadableStream } from "@/lib/ai";
 import type { AIMessage } from "@/lib/ai";
 
-const COPILOT_SYSTEM = `You are The Muse, an AI creative writing assistant for the Arcana Co-Author Studio.
+const COPILOT_SYSTEM = `You are The Muse, an AI creative writing assistant for the Echo Weave Studio.
 You help two co-authors (Xavier and Natalie) brainstorm, develop characters, refine themes,
 suggest plot directions, and improve their writing. Be creative, supportive, and insightful.
 Keep responses concise unless asked to elaborate.`;

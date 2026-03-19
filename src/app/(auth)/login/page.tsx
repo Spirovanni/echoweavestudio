@@ -55,7 +55,7 @@ export default function LoginPage() {
     <div className="w-full max-w-sm space-y-6 rounded-lg border border-border bg-card p-8 shadow-sm">
       <div className="space-y-2 text-center">
         <h1 className="text-2xl font-bold tracking-tight">
-          Arcana Co-Author Studio
+          Echo Weave Studio
         </h1>
         <p className="text-sm text-muted-foreground">
           {mode === "signin"

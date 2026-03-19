@@ -20,7 +20,7 @@ export default async function WorkspaceLayout({
         {/* Mobile header */}
         <header className="flex h-12 items-center gap-2 border-b border-border px-4 md:hidden">
           <MobileSidebar userEmail={email} />
-          <span className="text-sm font-bold tracking-tight">Arcana Studio</span>
+          <span className="text-sm font-bold tracking-tight">Echo Weave Studio</span>
         </header>
 
         <main className="flex-1 overflow-y-auto">{children}</main>

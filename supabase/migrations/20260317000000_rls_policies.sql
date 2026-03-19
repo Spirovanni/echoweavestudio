@@ -1,5 +1,5 @@
 -- =============================================================================
--- Arcana Co-Author Studio — Row Level Security Policies
+-- Echo Weave Studio — Row Level Security Policies
 -- Enforces project-scoped access: users can only access data within projects
 -- they are a member of.
 -- =============================================================================

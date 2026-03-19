@@ -80,7 +80,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
             <PenTool className="size-6 text-primary" />
             <span className="text-xl font-bold tracking-tight">
-              Arcana Co-Author Studio
+              Echo Weave Studio
             </span>
           </div>
           <Link href="/login">
@@ -167,7 +167,7 @@ export default function LandingPage() {
             Ready to Start Your Story?
           </h2>
           <p className="mb-8 text-lg text-muted-foreground">
-            Join Arcana Co-Author Studio and transform the way you collaborate
+            Join Echo Weave Studio and transform the way you collaborate
             on creative writing projects.
           </p>
           <Link href="/login">
@@ -182,7 +182,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-border/40 bg-background/80 py-12">
         <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
-          <p>© 2026 Arcana Co-Author Studio. Built for storytellers.</p>
+          <p>© 2026 Echo Weave Studio. Built for storytellers.</p>
         </div>
       </footer>
     </div>

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arcana Co-Author Studio",
+  title: "Echo Weave Studio",
   description: "Collaborative creative workspace for multimedia storytelling",
 };
 
