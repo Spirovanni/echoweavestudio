@@ -117,6 +117,26 @@ export interface Theme {
   updated_at: string;
 }
 
+export interface Comment {
+  id: string;
+  user_id: string;
+  entity_type: EntityType;
+  entity_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChapterRevision {
+  id: string;
+  chapter_id: string;
+  content: Record<string, unknown> | null; // Tiptap JSON
+  title: string;
+  summary: string | null;
+  edited_by: string;
+  created_at: string;
+}
+
 // --- Supabase database type helper ---
 
 export interface Database {
@@ -131,6 +151,8 @@ export interface Database {
       ews_images: { Row: Image; Insert: Omit<Image, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Image, "id">> };
       ews_characters: { Row: Character; Insert: Omit<Character, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Character, "id">> };
       ews_themes: { Row: Theme; Insert: Omit<Theme, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Theme, "id">> };
+      ews_comments: { Row: Comment; Insert: Omit<Comment, "id" | "created_at" | "updated_at">; Update: Partial<Omit<Comment, "id">> };
+      ews_chapter_revisions: { Row: ChapterRevision; Insert: Omit<ChapterRevision, "id" | "created_at">; Update: Partial<Omit<ChapterRevision, "id">> };
     };
   };
 }
