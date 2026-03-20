@@ -18,6 +18,18 @@ export default function PublicHomePage() {
         </p>
       </div>
 
+      <div className="mb-8">
+        <Link
+          href="/public/book"
+          className="block rounded-lg border-2 border-primary bg-primary/5 p-8 transition-colors hover:bg-primary/10 text-center"
+        >
+          <h2 className="text-2xl font-bold text-primary mb-2">Featured Book Release</h2>
+          <p className="text-muted-foreground">
+            Explore our primary project release including sample chapters, artist bios, and official soundtrack.
+          </p>
+        </Link>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Link
           href="/public/chapters"
