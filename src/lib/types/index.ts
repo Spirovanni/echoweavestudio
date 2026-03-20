@@ -99,6 +99,7 @@ export interface Image {
   image_url: string;
   caption: string | null;
   symbolism: string | null;
+  published: boolean;
   created_by: string;
   created_at: string;
   updated_at: string;
