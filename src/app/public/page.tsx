@@ -1,4 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Published Works — Echo Weave Studio",
+  description: "Explore published chapters and artwork from Echo Weave Studio.",
+};
 
 export default function PublicHomePage() {
   return (

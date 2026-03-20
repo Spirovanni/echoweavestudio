@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
   let query = supabase
     .from("ews_images")
-    .select("id, project_id, title, image_url, caption, symbolism, created_at, updated_at", {
+    .select("id, project_id, title, image_url, caption, created_at, updated_at", {
       count: "exact",
     })
     .eq("published", true)
@@ -37,5 +37,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ data, total: count });
+  return NextResponse.json(
+    { data, total: count },
+    { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
+  );
 }

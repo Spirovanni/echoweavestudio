@@ -1,5 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Published Chapters — Echo Weave Studio",
+  description: "Read published chapters and stories from Echo Weave Studio.",
+};
 
 export default async function PublicChaptersPage() {
   const supabase = await createClient();
