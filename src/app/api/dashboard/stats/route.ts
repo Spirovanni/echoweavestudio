@@ -23,13 +23,14 @@ export async function GET() {
 
     if (projectIds.length === 0) {
       return NextResponse.json({
-        chapters: { total: 0, byStatus: {} },
+        chapters: { total: 0, byStatus: {}, completionPercent: 0, completedCount: 0 },
         songs: { total: 0 },
         images: { total: 0 },
         characters: { total: 0 },
         themes: { total: 0 },
         notes: { total: 0 },
         conversations: { total: 0 },
+        linkedAssets: { themeLinks: 0, characterLinks: 0, conversationLinks: 0 },
       });
     }
 
@@ -42,6 +43,9 @@ export async function GET() {
       themesResult,
       notesResult,
       conversationsResult,
+      linkedThemesResult,
+      linkedCharactersResult,
+      linkedConversationsResult,
     ] = await Promise.all([
       // Chapters with status breakdown
       supabase
@@ -84,6 +88,19 @@ export async function GET() {
         .from("ews_conversations")
         .select("id", { count: "exact", head: true })
         .in("project_id", projectIds),
+
+      // Linked asset counts
+      supabase
+        .from("ews_chapter_themes")
+        .select("id", { count: "exact", head: true }),
+
+      supabase
+        .from("ews_chapter_characters")
+        .select("id", { count: "exact", head: true }),
+
+      supabase
+        .from("ews_chapter_conversations")
+        .select("id", { count: "exact", head: true }),
     ]);
 
     // Process chapter status breakdown
@@ -97,10 +114,19 @@ export async function GET() {
       });
     }
 
+    // Compute completion percentage
+    const completedCount =
+      (chaptersByStatus["complete"] || 0) +
+      (chaptersByStatus["published"] || 0);
+    const completionPercent =
+      chaptersTotal > 0 ? Math.round((completedCount / chaptersTotal) * 100) : 0;
+
     return NextResponse.json({
       chapters: {
         total: chaptersTotal,
         byStatus: chaptersByStatus,
+        completionPercent,
+        completedCount,
       },
       songs: {
         total: songsResult.count ?? 0,
@@ -119,6 +145,11 @@ export async function GET() {
       },
       conversations: {
         total: conversationsResult.count ?? 0,
+      },
+      linkedAssets: {
+        themeLinks: linkedThemesResult.count ?? 0,
+        characterLinks: linkedCharactersResult.count ?? 0,
+        conversationLinks: linkedConversationsResult.count ?? 0,
       },
     });
   } catch (err) {
