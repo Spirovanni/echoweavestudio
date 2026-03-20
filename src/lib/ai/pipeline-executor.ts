@@ -56,14 +56,39 @@ export class PipelineExecutor {
   }
 
   /**
+   * Re-hydrate a PipelineExecutor from an existing state
+   */
+  static fromState(
+    state: PipelineState,
+    definition: PipelineDefinition,
+    options: PipelineExecutionOptions
+  ): PipelineExecutor {
+    // We pass dummy input since it will be overwritten by state
+    const executor = new PipelineExecutor(definition, options);
+    executor.state = JSON.parse(JSON.stringify(state)); // Deep copy to avoid reference issues
+    
+    // If we're paused, we must set the internal boolean
+    if (executor.state.status === "paused") {
+      executor.isPaused = true;
+    }
+    
+    return executor;
+  }
+
+  /**
    * Execute the pipeline
    */
   async execute(): Promise<PipelineResult> {
     this.updateStatus("running");
 
     try {
-      // Execute steps sequentially
-      for (let i = 0; i < this.definition.steps.length; i++) {
+      // Execute steps sequentially, starting from currentStepIndex
+      for (let i = this.state.currentStepIndex; i < this.definition.steps.length; i++) {
+        // If we just resumed, clear the paused flag at the start of loop
+        if (this.isPaused && this.state.status === "running") {
+           this.isPaused = false;
+        }
+
         // Check for pause or cancellation
         if (this.isPaused) {
           this.updateStatus("paused");
@@ -140,6 +165,7 @@ export class PipelineExecutor {
     if (this.state.status === "paused") {
       this.isPaused = false;
       this.state.pausedAt = undefined;
+      // Start the execute loop, picking up where it left off
       return this.execute();
     }
     throw new Error("Pipeline is not paused");
