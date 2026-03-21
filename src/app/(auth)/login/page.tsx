@@ -33,7 +33,7 @@ export default function LoginPage() {
         return;
       }
     } else {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -45,10 +45,17 @@ export default function LoginPage() {
         setLoading(false);
         return;
       }
+      if (!data.session) {
+        // Supabase requires email confirmation
+        setError("Registration successful! Please check your email to confirm your account.");
+        setLoading(false);
+        return;
+      }
     }
 
-    router.push("/dashboard");
-    router.refresh();
+    // Use a hard redirect instead of next/router to ensure cookies are sent cleanly 
+    // and to bypass Next.js aggressive client-side caching of the unauthenticated state.
+    window.location.href = "/dashboard";
   };
 
   return (
